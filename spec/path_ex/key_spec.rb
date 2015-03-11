@@ -18,14 +18,21 @@ module PathEx
       subject(:key) { Key.new("users.name.first") }
 
       specify "#head returns first level" do
-        expect( key.head ).to eql("users")
+        expect( key.head ).to eq("users")
       end
 
       specify "#tail returns remaining levels" do
-        expect( key.tail ).to eql("name.first")
+        expect( key.tail ).to eq( Key.new("name.first") )
       end
     end
 
+    describe "#+(other) return value" do
+      subject { Key.new("users") + Key.new("name") }
+
+      it { should be_kind_of(Key) }
+
+      it { should eq(Key.new("users.name")) }
+    end
 
   end
 end

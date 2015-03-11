@@ -1,6 +1,7 @@
 # PathEx
 
-TODO: Write a gem description
+PathEx facilitates referencing nested data structures using
+dot-notation.
 
 ## Installation
 

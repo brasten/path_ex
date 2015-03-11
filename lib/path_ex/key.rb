@@ -1,4 +1,7 @@
 module PathEx
+
+  # Dot-notation key for referencing nested data structures.
+  #
   class Key
     SEPARATOR = "."
 
@@ -7,6 +10,8 @@ module PathEx
 
     # Initializes a new key with an existing key or a SEPARATOR-delimited
     # string.
+    #
+    # @param [Key, String] path_or_key
     #
     def initialize(path_or_key)
       if path_or_key.respond_to?(:head) && path_or_key.respond_to?(:tail)
@@ -18,11 +23,13 @@ module PathEx
 
         unless segments.empty?
           @head = segments.shift
-          @tail = segments.empty? ? nil : segments.join(SEPARATOR)
+          @tail = segments.empty? ? nil : Key.new(segments.join(SEPARATOR))
         end
       end
     end
 
+    # Returns true if this key has more than one component
+    #
     def has_tail?
       !@tail.nil?
     end
@@ -35,12 +42,30 @@ module PathEx
       empty?
     end
 
+    # Concatenates one key with another.
+    #
+    # eg. Key.new("one.two") + Key.new("three")
+    # => Key("one.two.three")
+    #
+    # @param [Key] other
+    # @return key
+    #
     def +(other)
-      [to_s, other.to_s].join(SEPARATOR)
+      Key.new( [to_s, other.to_s].join(SEPARATOR) )
+    end
+
+    def ==(other)
+      to_s == other.to_s
+    end
+
+    def <=>(other)
+      to_s <=> other.to_s
     end
 
     def to_s
-      [head, tail].compact.join(SEPARATOR)
+      return head if !has_tail?
+
+      "#{head}#{SEPARATOR}#{tail.to_s}"
     end
   end
 end
