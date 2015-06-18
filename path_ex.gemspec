@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "path_ex"
   spec.version       = PathEx::VERSION
   spec.authors       = ["Brasten Sager"]
-  spec.email         = ["brasten_sager@htc.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.email         = ["brasten@brasten.me"]
+  spec.summary       = "Provides dot-notation-based key access to nested hash values"
+  spec.description   = ""
   spec.homepage      = ""
   spec.license       = "MIT"
 
